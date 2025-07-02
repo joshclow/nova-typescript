@@ -50,7 +50,7 @@ const keys: {
   useLabelDetailsInCompletionEntries: "boolean",
 };
 
-export function setupUserPreferences(): Disposable {
+export function setupUserPreferences(): NovaDisposable {
   const disposable = new CompositeDisposable();
   for (const key in keys) {
     const configKey = `apexskier.typescript.config.userPreferences.${key}`;

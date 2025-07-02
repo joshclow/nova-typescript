@@ -4,7 +4,9 @@ type Element = {
   readonly identifier: string;
 };
 
-export class InformationView implements TreeDataProvider<Element>, Disposable {
+export class InformationView
+  implements TreeDataProvider<Element>, NovaDisposable
+{
   constructor() {
     this._treeView = new TreeView("apexskier.typescript.sidebar.info", {
       dataProvider: this,

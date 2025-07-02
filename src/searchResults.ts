@@ -8,7 +8,7 @@ type MyTreeProvider<T> = TreeDataProvider<T> & {
   onSelect(element: T): Promise<void>;
 };
 
-let lastDisposable: Disposable | null = null;
+let lastDisposable: NovaDisposable | null = null;
 
 export function createSymbolSearchResultsTree(
   response: Array<lspTypes.SymbolInformation>

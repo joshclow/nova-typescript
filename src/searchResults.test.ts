@@ -23,9 +23,9 @@ import {
 class NotificationRequestMock {}
 (global as any).NotificationRequest = NotificationRequestMock;
 
-class CompositeDisposableMock implements Disposable {
-  private _disposables: Array<Disposable> = [];
-  add(disposable: Disposable) {
+class CompositeDisposableMock implements NovaDisposable {
+  private _disposables: Array<NovaDisposable> = [];
+  add(disposable: NovaDisposable) {
     this._disposables.push(disposable);
   }
   dispose() {

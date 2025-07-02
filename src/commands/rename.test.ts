@@ -48,7 +48,7 @@ describe("rename command", () => {
   function getCommand(
     languageClient: LanguageClient,
     // eslint-disable-next-line no-unused-vars
-    register: (client: LanguageClient) => Disposable
+    register: (client: LanguageClient) => NovaDisposable
     // eslint-disable-next-line no-unused-vars
   ): (...args: Array<any>) => Promise<void> {
     register(languageClient);
@@ -94,8 +94,12 @@ describe("rename command", () => {
         },
       }
     );
-    expect(applyWorkspaceEditModule.applyWorkspaceEdit).toHaveBeenCalledTimes(1);
-    expect(nova.workspace.openFile).toHaveBeenCalledWith(mockEditor.document.uri);
+    expect(applyWorkspaceEditModule.applyWorkspaceEdit).toHaveBeenCalledTimes(
+      1
+    );
+    expect(nova.workspace.openFile).toHaveBeenCalledWith(
+      mockEditor.document.uri
+    );
     expect(mockEditor.scrollToCursorPosition).toHaveBeenCalledTimes(1);
   });
 
