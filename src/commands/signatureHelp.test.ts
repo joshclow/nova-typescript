@@ -54,7 +54,7 @@ describe("signatureHelp command", () => {
     );
     await command(mockEditor);
 
-    expect(nova.workspace.showInformativeMessage).toBeCalledTimes(1);
+    expect(nova.workspace.showInformativeMessage).toHaveBeenCalledTimes(1);
     expect(nova.workspace.showInformativeMessage).toHaveBeenCalledWith(
       "Couldn't find documentation."
     );

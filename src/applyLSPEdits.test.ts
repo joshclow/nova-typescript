@@ -31,7 +31,7 @@ describe("Apply lsp edits", () => {
     const editCB = mockEditor.edit.mock.calls[0][0];
     const replaceMock = jest.fn();
     editCB({ replace: replaceMock });
-    expect(replaceMock).toBeCalledTimes(2);
+    expect(replaceMock).toHaveBeenCalledTimes(2);
     // in reverse order
     expect(replaceMock).toHaveBeenNthCalledWith(1, edit2.range, edit2.newText);
     expect(replaceMock).toHaveBeenNthCalledWith(2, edit1.range, edit1.newText);

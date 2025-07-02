@@ -132,17 +132,17 @@ describe("Symbol search results tree", () => {
       .mockReturnValueOnce(Promise.resolve(mockEditor));
 
     createSymbolSearchResultsTree(symbols);
-    expect(nova.commands.register).toBeCalledWith(
+    expect(nova.commands.register).toHaveBeenCalledWith(
       "apexskier.typescript.showSearchResult",
       expect.any(Function)
     );
     const command = (nova.commands.register as jest.Mock).mock.calls[0][1];
     await command();
 
-    expect(nova.workspace.openFile).toBeCalledTimes(1);
-    expect(nova.workspace.openFile).toBeCalledWith("fileURI1");
-    expect(mockEditor.addSelectionForRange).toBeCalledTimes(1);
-    expect(mockEditor.scrollToPosition).toBeCalledTimes(1);
+    expect(nova.workspace.openFile).toHaveBeenCalledTimes(1);
+    expect(nova.workspace.openFile).toHaveBeenCalledWith("fileURI1");
+    expect(mockEditor.addSelectionForRange).toHaveBeenCalledTimes(1);
+    expect(mockEditor.scrollToPosition).toHaveBeenCalledTimes(1);
   });
 
   it("renders locations as TreeItems by files", async () => {
@@ -219,17 +219,17 @@ describe("Location search results tree", () => {
       .mockReturnValueOnce(Promise.resolve(mockEditor));
 
     createLocationSearchResultsTree("name", locations);
-    expect(nova.commands.register).toBeCalledWith(
+    expect(nova.commands.register).toHaveBeenCalledWith(
       "apexskier.typescript.showSearchResult",
       expect.any(Function)
     );
     const command = (nova.commands.register as jest.Mock).mock.calls[0][1];
     await command();
 
-    expect(nova.workspace.openFile).toBeCalledTimes(1);
-    expect(nova.workspace.openFile).toBeCalledWith("fileURI1");
-    expect(mockEditor.addSelectionForRange).toBeCalledTimes(1);
-    expect(mockEditor.scrollToPosition).toBeCalledTimes(1);
+    expect(nova.workspace.openFile).toHaveBeenCalledTimes(1);
+    expect(nova.workspace.openFile).toHaveBeenCalledWith("fileURI1");
+    expect(mockEditor.addSelectionForRange).toHaveBeenCalledTimes(1);
+    expect(mockEditor.scrollToPosition).toHaveBeenCalledTimes(1);
   });
 
   it("renders locations as TreeItems by files", async () => {
@@ -311,24 +311,24 @@ it.each([
     "apexskier.typescript.sidebar.symbols",
     expect.anything()
   );
-  expect(nova.notifications.add).not.toBeCalled();
+  expect(nova.notifications.add).not.toHaveBeenCalled();
   const treeMock1 = TreeViewTypedMock.mock.results[0].value;
-  expect(treeMock1.dispose).not.toBeCalled();
-  expect(nova.commands.register).toBeCalledWith(
+  expect(treeMock1.dispose).not.toHaveBeenCalled();
+  expect(nova.commands.register).toHaveBeenCalledWith(
     "apexskier.typescript.showSearchResult",
     expect.any(Function)
   );
   (nova.commands.register as jest.Mock).mock.results.forEach(({ value }) => {
-    expect(value.dispose).not.toBeCalled();
+    expect(value.dispose).not.toHaveBeenCalled();
   });
 
   b();
   expect(TreeView).toHaveBeenCalledTimes(2);
   const treeMock2 = TreeViewTypedMock.mock.results[1].value;
-  expect(treeMock1.dispose).toBeCalled();
-  expect(treeMock2.dispose).not.toBeCalled();
+  expect(treeMock1.dispose).toHaveBeenCalled();
+  expect(treeMock2.dispose).not.toHaveBeenCalled();
   const command1 = (nova.commands.register as jest.Mock).mock.results[0].value;
-  expect(command1.dispose).toBeCalled();
+  expect(command1.dispose).toHaveBeenCalled();
   const command2 = (nova.commands.register as jest.Mock).mock.results[1].value;
-  expect(command2.dispose).toBeCalled();
+  expect(command2.dispose).toHaveBeenCalled();
 });

@@ -35,13 +35,13 @@ describe("tsLibPath", () => {
 
   describe("reloads extension when it changes", () => {
     it("globally and for the workspace", () => {
-      expect(nova.config.onDidChange).toBeCalledTimes(1);
-      expect(nova.config.onDidChange).toBeCalledWith(
+      expect(nova.config.onDidChange).toHaveBeenCalledTimes(1);
+      expect(nova.config.onDidChange).toHaveBeenCalledWith(
         "apexskier.typescript.config.tslibPath",
         expect.any(Function)
       );
-      expect(nova.workspace.config.onDidChange).toBeCalledTimes(1);
-      expect(nova.workspace.config.onDidChange).toBeCalledWith(
+      expect(nova.workspace.config.onDidChange).toHaveBeenCalledTimes(1);
+      expect(nova.workspace.config.onDidChange).toHaveBeenCalledWith(
         "apexskier.typescript.config.tslibPath",
         expect.any(Function)
       );
@@ -56,8 +56,8 @@ describe("tsLibPath", () => {
     it("by calling the reload command", () => {
       const reload = (nova.config.onDidChange as jest.Mock).mock.calls[0][1];
       reload();
-      expect(nova.commands.invoke).toBeCalledTimes(1);
-      expect(nova.commands.invoke).toBeCalledWith(
+      expect(nova.commands.invoke).toHaveBeenCalledTimes(1);
+      expect(nova.commands.invoke).toHaveBeenCalledWith(
         "apexskier.typescript.reload"
       );
     });
@@ -110,8 +110,8 @@ describe("tsLibPath", () => {
     describe("warns if the config is wrong", () => {
       afterEach(() => {
         expect(getTsLibPath()).toBeNull();
-        expect(nova.workspace.showErrorMessage as jest.Mock).toBeCalledTimes(1);
-        expect(nova.workspace.showErrorMessage as jest.Mock).toBeCalledWith(
+        expect(nova.workspace.showErrorMessage as jest.Mock).toHaveBeenCalledTimes(1);
+        expect(nova.workspace.showErrorMessage as jest.Mock).toHaveBeenCalledWith(
           "Your TypeScript library couldn't be found, please check your settings."
         );
       });
@@ -128,8 +128,8 @@ describe("tsLibPath", () => {
     it("errors if it's the extension's false", () => {
       global.console.error = jest.fn();
       expect(getTsLibPath()).toBe(null);
-      expect(nova.workspace.showErrorMessage as jest.Mock).toBeCalledTimes(0);
-      expect(global.console.error).toBeCalledTimes(1);
+      expect(nova.workspace.showErrorMessage as jest.Mock).toHaveBeenCalledTimes(0);
+      expect(global.console.error).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -137,8 +137,8 @@ describe("tsLibPath", () => {
     (nova.workspace.path as any) = "";
     (nova.workspace.config.get as any) = jest.fn(() => "../workspaceconfig");
     expect(getTsLibPath()).toBeNull();
-    expect(nova.workspace.showErrorMessage as jest.Mock).toBeCalledTimes(1);
-    expect(nova.workspace.showErrorMessage as jest.Mock).toBeCalledWith(
+    expect(nova.workspace.showErrorMessage as jest.Mock).toHaveBeenCalledTimes(1);
+    expect(nova.workspace.showErrorMessage as jest.Mock).toHaveBeenCalledWith(
       "Save your workspace before using a relative TypeScript library path."
     );
   });

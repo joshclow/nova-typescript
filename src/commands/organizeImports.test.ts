@@ -77,7 +77,7 @@ describe("organizeImports command", () => {
     expect(mockEditor.selectedRanges).toEqual([new Range(2, 3)]);
     await command(mockEditor);
 
-    expect(mockLanguageClient.sendRequest).toBeCalledTimes(2);
+    expect(mockLanguageClient.sendRequest).toHaveBeenCalledTimes(2);
     expect(mockLanguageClient.sendRequest).toHaveBeenNthCalledWith(
       1,
       "textDocument/formatting",
@@ -98,7 +98,7 @@ describe("organizeImports command", () => {
       }
     );
     expect(mockEditor.selectedRanges).toEqual([new Range(6, 7)]);
-    expect(mockEditor.scrollToCursorPosition).toBeCalledTimes(1);
+    expect(mockEditor.scrollToCursorPosition).toHaveBeenCalledTimes(1);
   });
 
   it("doesn't reset scroll to a negative value", async () => {
@@ -113,7 +113,7 @@ describe("organizeImports command", () => {
     );
     await command(mockEditor);
     expect(mockEditor.selectedRanges).toEqual([new Range(0, 0)]);
-    expect(mockEditor.scrollToCursorPosition).toBeCalledTimes(1);
+    expect(mockEditor.scrollToCursorPosition).toHaveBeenCalledTimes(1);
   });
 
   it("warns if the document isn't saved", async () => {
@@ -127,7 +127,7 @@ describe("organizeImports command", () => {
     );
     await command(mockEditor);
 
-    expect(nova.workspace.showWarningMessage).toBeCalledTimes(1);
+    expect(nova.workspace.showWarningMessage).toHaveBeenCalledTimes(1);
     expect(nova.workspace.showWarningMessage).toHaveBeenCalledWith(
       "Please save this document before organizing imports."
     );

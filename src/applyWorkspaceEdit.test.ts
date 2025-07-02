@@ -44,15 +44,15 @@ describe("Apply workspace edit", () => {
     });
 
     // each file with changes should be opened
-    expect(novaUtils.openFile).toBeCalledTimes(2);
+    expect(novaUtils.openFile).toHaveBeenCalledTimes(2);
     const openFileMock = (novaUtils.openFile as jest.Mock).mock;
     expect(novaUtils.openFile).toHaveBeenNthCalledWith(1, "fileURI1");
     expect(novaUtils.openFile).toHaveBeenNthCalledWith(2, "fileURI2");
     // each file should be edited
     const file1: TextEditor = openFileMock.results[0].value;
-    expect(file1.edit).toBeCalledTimes(1);
+    expect(file1.edit).toHaveBeenCalledTimes(1);
     const file2: TextEditor = openFileMock.results[1].value;
-    expect(file2.edit).toBeCalledTimes(1);
+    expect(file2.edit).toHaveBeenCalledTimes(1);
 
     // file edit callbacks should apply changes
     const file1EditCB = (file1.edit as jest.Mock).mock.calls[0][0];
@@ -61,9 +61,9 @@ describe("Apply workspace edit", () => {
     const file2EditCB = (file2.edit as jest.Mock).mock.calls[0][0];
     const replaceMock2 = jest.fn();
     file2EditCB({ replace: replaceMock2 });
-    expect(replaceMock1).toBeCalledTimes(1);
-    expect(replaceMock1).toBeCalledWith(edit1.range, edit1.newText);
-    expect(replaceMock2).toBeCalledTimes(2);
+    expect(replaceMock1).toHaveBeenCalledTimes(1);
+    expect(replaceMock1).toHaveBeenCalledWith(edit1.range, edit1.newText);
+    expect(replaceMock2).toHaveBeenCalledTimes(2);
     // reverse order
     expect(replaceMock2).toHaveBeenNthCalledWith(1, edit2.range, edit2.newText);
     expect(replaceMock2).toHaveBeenNthCalledWith(2, edit1.range, edit1.newText);

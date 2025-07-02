@@ -94,9 +94,9 @@ describe("rename command", () => {
         },
       }
     );
-    expect(applyWorkspaceEditModule.applyWorkspaceEdit).toBeCalledTimes(1);
-    expect(nova.workspace.openFile).toBeCalledWith(mockEditor.document.uri);
-    expect(mockEditor.scrollToCursorPosition).toBeCalledTimes(1);
+    expect(applyWorkspaceEditModule.applyWorkspaceEdit).toHaveBeenCalledTimes(1);
+    expect(nova.workspace.openFile).toHaveBeenCalledWith(mockEditor.document.uri);
+    expect(mockEditor.scrollToCursorPosition).toHaveBeenCalledTimes(1);
   });
 
   it("warns if the symbol can't be renamed", async () => {
@@ -109,7 +109,7 @@ describe("rename command", () => {
     );
     await command(mockEditor);
 
-    expect(nova.workspace.showWarningMessage).toBeCalledTimes(1);
+    expect(nova.workspace.showWarningMessage).toHaveBeenCalledTimes(1);
     expect(nova.workspace.showWarningMessage).toHaveBeenCalledWith(
       "Couldn't rename symbol."
     );
@@ -121,7 +121,7 @@ describe("rename command", () => {
     };
 
     afterEach(() => {
-      expect(mockLanguageClient.sendRequest).toBeCalledTimes(0);
+      expect(mockLanguageClient.sendRequest).toHaveBeenCalledTimes(0);
     });
 
     it("no new name is provided", async () => {

@@ -28,8 +28,8 @@ describe("tsUserPreferences", () => {
 
       setupUserPreferences();
 
-      expect(nova.config.onDidChange).toBeCalledTimes(32);
-      expect(nova.workspace.config.onDidChange).toBeCalledTimes(32);
+      expect(nova.config.onDidChange).toHaveBeenCalledTimes(32);
+      expect(nova.workspace.config.onDidChange).toHaveBeenCalledTimes(32);
 
       const globalConfigKeys = (
         nova.config.onDidChange as jest.Mock
@@ -89,8 +89,8 @@ describe("tsUserPreferences", () => {
     it("by calling the reload command", () => {
       const reload = (nova.config.onDidChange as jest.Mock).mock.calls[0][1];
       reload();
-      expect(nova.commands.invoke).toBeCalledTimes(1);
-      expect(nova.commands.invoke).toBeCalledWith(
+      expect(nova.commands.invoke).toHaveBeenCalledTimes(1);
+      expect(nova.commands.invoke).toHaveBeenCalledWith(
         "apexskier.typescript.reload"
       );
     });

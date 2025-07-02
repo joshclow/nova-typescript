@@ -23,13 +23,13 @@ describe("skipDestructiveOrganizeImports", () => {
 
   describe("reloads extension when it changes", () => {
     it("globally and for the workspace", () => {
-      expect(nova.config.onDidChange).toBeCalledTimes(1);
-      expect(nova.config.onDidChange).toBeCalledWith(
+      expect(nova.config.onDidChange).toHaveBeenCalledTimes(1);
+      expect(nova.config.onDidChange).toHaveBeenCalledWith(
         "apexskier.typescript.config.skipDestructiveOrganizeImports",
         expect.any(Function)
       );
-      expect(nova.workspace.config.onDidChange).toBeCalledTimes(1);
-      expect(nova.workspace.config.onDidChange).toBeCalledWith(
+      expect(nova.workspace.config.onDidChange).toHaveBeenCalledTimes(1);
+      expect(nova.workspace.config.onDidChange).toHaveBeenCalledWith(
         "apexskier.typescript.config.skipDestructiveOrganizeImports",
         expect.any(Function)
       );
@@ -44,8 +44,8 @@ describe("skipDestructiveOrganizeImports", () => {
     it("by calling the reload command", () => {
       const reload = (nova.config.onDidChange as jest.Mock).mock.calls[0][1];
       reload();
-      expect(nova.commands.invoke).toBeCalledTimes(1);
-      expect(nova.commands.invoke).toBeCalledWith(
+      expect(nova.commands.invoke).toHaveBeenCalledTimes(1);
+      expect(nova.commands.invoke).toHaveBeenCalledWith(
         "apexskier.typescript.reload"
       );
     });

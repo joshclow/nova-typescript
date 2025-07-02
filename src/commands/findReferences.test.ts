@@ -57,7 +57,7 @@ describe("findReferences command", () => {
     );
     await command(mockEditor);
 
-    expect(nova.workspace.showInformativeMessage).toBeCalledTimes(1);
+    expect(nova.workspace.showInformativeMessage).toHaveBeenCalledTimes(1);
     expect(nova.workspace.showInformativeMessage).toHaveBeenCalledWith(
       "Couldn't find references."
     );
@@ -80,7 +80,7 @@ describe("findReferences command", () => {
       expect.anything()
     );
 
-    expect(searchResultsModule.createLocationSearchResultsTree).toBeCalledTimes(
+    expect(searchResultsModule.createLocationSearchResultsTree).toHaveBeenCalledTimes(
       1
     );
   });

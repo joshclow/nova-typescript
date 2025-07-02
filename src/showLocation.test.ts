@@ -58,11 +58,11 @@ coooooool beeeaaans`;
 
     await showLocation(location);
 
-    expect(nova.workspace.openFile).toBeCalledTimes(1);
-    expect(nova.workspace.openFile).toBeCalledWith("fileURI");
-    expect(mockEditor.addSelectionForRange).toBeCalledTimes(1);
-    expect(mockEditor.addSelectionForRange).toBeCalledWith(new Range(15, 41));
-    expect(mockEditor.scrollToPosition).toBeCalledTimes(1);
+    expect(nova.workspace.openFile).toHaveBeenCalledTimes(1);
+    expect(nova.workspace.openFile).toHaveBeenCalledWith("fileURI");
+    expect(mockEditor.addSelectionForRange).toHaveBeenCalledTimes(1);
+    expect(mockEditor.addSelectionForRange).toHaveBeenCalledWith(new Range(15, 41));
+    expect(mockEditor.scrollToPosition).toHaveBeenCalledTimes(1);
   });
 
   it("handles failures to open editor", async () => {
@@ -70,9 +70,9 @@ coooooool beeeaaans`;
     nova.workspace.showWarningMessage = jest.fn();
     await showLocation(location);
 
-    expect(nova.workspace.openFile).toBeCalledWith("fileURI");
-    expect(nova.workspace.showWarningMessage).toBeCalledTimes(1);
-    expect(nova.workspace.showWarningMessage).toBeCalledWith(
+    expect(nova.workspace.openFile).toHaveBeenCalledWith("fileURI");
+    expect(nova.workspace.showWarningMessage).toHaveBeenCalledTimes(1);
+    expect(nova.workspace.showWarningMessage).toHaveBeenCalledWith(
       "Failed to open fileURI"
     );
   });

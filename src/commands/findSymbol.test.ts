@@ -64,7 +64,7 @@ describe("findSymbol command", () => {
     );
     await command(mockWorkspace);
 
-    expect(mockWorkspace.showWarningMessage).toBeCalledTimes(1);
+    expect(mockWorkspace.showWarningMessage).toHaveBeenCalledTimes(1);
     expect(mockWorkspace.showWarningMessage).toHaveBeenCalledWith(
       "Couldn't find symbol."
     );
@@ -103,7 +103,7 @@ describe("findSymbol command", () => {
       "workspace/symbol",
       { query: "symbol" }
     );
-    expect(searchResultsModule.createSymbolSearchResultsTree).toBeCalledWith(
+    expect(searchResultsModule.createSymbolSearchResultsTree).toHaveBeenCalledWith(
       results
     );
   });

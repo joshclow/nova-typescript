@@ -105,75 +105,75 @@ describe("test suite", () => {
   test("global behavior", () => {
     require("./main");
 
-    expect(nova.commands.register).toBeCalledTimes(2);
-    expect(nova.commands.register).toBeCalledWith(
+    expect(nova.commands.register).toHaveBeenCalledTimes(2);
+    expect(nova.commands.register).toHaveBeenCalledWith(
       "apexskier.typescript.openWorkspaceConfig",
       expect.any(Function)
     );
-    expect(nova.commands.register).toBeCalledWith(
+    expect(nova.commands.register).toHaveBeenCalledWith(
       "apexskier.typescript.reload",
       expect.any(Function)
     );
 
-    expect(CompositeDisposable).toBeCalledTimes(1);
+    expect(CompositeDisposable).toHaveBeenCalledTimes(1);
 
     const { registerDependencyUnlockCommand } =
       require("nova-extension-utils").dependencyManagement;
-    expect(registerDependencyUnlockCommand).toBeCalledTimes(1);
-    expect(registerDependencyUnlockCommand).toBeCalledWith(
+    expect(registerDependencyUnlockCommand).toHaveBeenCalledTimes(1);
+    expect(registerDependencyUnlockCommand).toHaveBeenCalledWith(
       "apexskier.typescript.forceClearLock"
     );
   });
 
   function assertActivationBehavior() {
-    expect(nova.commands.register).toBeCalledTimes(7);
-    expect(nova.commands.register).nthCalledWith(
+    expect(nova.commands.register).toHaveBeenCalledTimes(7);
+    expect(nova.commands.register).toHaveBeenNthCalledWith(
       1,
       "apexskier.typescript.openWorkspaceConfig",
       expect.any(Function)
     );
-    expect(nova.commands.register).nthCalledWith(
+    expect(nova.commands.register).toHaveBeenNthCalledWith(
       2,
       "apexskier.typescript.reload",
       expect.any(Function)
     );
-    expect(nova.commands.register).nthCalledWith(
+    expect(nova.commands.register).toHaveBeenNthCalledWith(
       3,
       "apexskier.typescript.findReferences",
       expect.any(Function)
     );
-    expect(nova.commands.register).nthCalledWith(
+    expect(nova.commands.register).toHaveBeenNthCalledWith(
       4,
       "apexskier.typescript.findSymbol",
       expect.any(Function)
     );
-    expect(nova.commands.register).nthCalledWith(
+    expect(nova.commands.register).toHaveBeenNthCalledWith(
       5,
       "apexskier.typescript.rename",
       expect.any(Function)
     );
-    expect(nova.commands.register).nthCalledWith(
+    expect(nova.commands.register).toHaveBeenNthCalledWith(
       6,
       "apexskier.typescript.commands.organizeImports",
       expect.any(Function)
     );
-    expect(nova.commands.register).nthCalledWith(
+    expect(nova.commands.register).toHaveBeenNthCalledWith(
       7,
       "apexskier.typescript.commands.formatDocument",
       expect.any(Function)
     );
 
     const tsUserPreferencesModule = require("./tsUserPreferences");
-    expect(tsUserPreferencesModule.setupUserPreferences).toBeCalled();
+    expect(tsUserPreferencesModule.setupUserPreferences).toHaveBeenCalled();
 
     // installs dependencies
 
     const {
       dependencyManagement: { installWrappedDependencies },
     } = require("nova-extension-utils");
-    expect(installWrappedDependencies).toBeCalledTimes(1);
+    expect(installWrappedDependencies).toHaveBeenCalledTimes(1);
 
-    expect(Process).toBeCalledTimes(2);
+    expect(Process).toHaveBeenCalledTimes(2);
     // makes the run script executable
     expect(Process).toHaveBeenNthCalledWith(1, "/usr/bin/env", {
       args: ["chmod", "u+x", "/extension/run.sh"],
@@ -184,8 +184,8 @@ describe("test suite", () => {
       stdio: ["ignore", "pipe", "ignore"],
     });
 
-    expect(LanguageClientMock).toBeCalledTimes(1);
-    expect(LanguageClientMock).toBeCalledWith(
+    expect(LanguageClientMock).toHaveBeenCalledTimes(1);
+    expect(LanguageClientMock).toHaveBeenCalledWith(
       "apexskier.typescript",
       "TypeScript Language Server",
       {
@@ -211,17 +211,17 @@ describe("test suite", () => {
     );
     const languageClient: LanguageClient =
       LanguageClientMock.mock.results[0].value;
-    expect(languageClient.start).toBeCalledTimes(1);
+    expect(languageClient.start).toHaveBeenCalledTimes(1);
 
-    expect(languageClient.onRequest).not.toBeCalled();
+    expect(languageClient.onRequest).not.toHaveBeenCalled();
 
     const { InformationView } = require("./informationView");
-    expect(InformationView).toBeCalledTimes(1);
+    expect(InformationView).toHaveBeenCalledTimes(1);
     const informationView = (
       InformationView as jest.Mock<typeof InformationView>
     ).mock.instances[0];
     expect(informationView.status).toBe("Running");
-    expect(informationView.reload).toBeCalledTimes(1);
+    expect(informationView.reload).toHaveBeenCalledTimes(1);
   }
 
   describe("activate and deactivate", () => {
@@ -270,10 +270,10 @@ describe("test suite", () => {
 
       const languageClient: LanguageClient =
         LanguageClientMock.mock.results[0].value;
-      expect(languageClient.stop).toBeCalledTimes(1);
+      expect(languageClient.stop).toHaveBeenCalledTimes(1);
       const compositeDisposable: CompositeDisposable =
         CompositeDisposableMock.mock.results[0].value;
-      expect(compositeDisposable.dispose).toBeCalledTimes(1);
+      expect(compositeDisposable.dispose).toHaveBeenCalledTimes(1);
     });
 
     it("shows an error if activation fails", async () => {
@@ -293,7 +293,7 @@ describe("test suite", () => {
 
       await activate();
 
-      expect(nova.workspace.showErrorMessage).toBeCalledWith(
+      expect(nova.workspace.showErrorMessage).toHaveBeenCalledWith(
         new Error("Failed to install:\n\nsome output on stderr")
       );
     });
@@ -313,7 +313,7 @@ describe("test suite", () => {
 
       stopCallback(new Error("Mock language server crash"));
 
-      expect(nova.workspace.showActionPanel).toBeCalledTimes(1);
+      expect(nova.workspace.showActionPanel).toHaveBeenCalledTimes(1);
       const actionPanelCall = (nova.workspace.showActionPanel as jest.Mock).mock
         .calls[0];
       expect(actionPanelCall[0]).toMatchInlineSnapshot(`
@@ -334,10 +334,10 @@ describe("test suite", () => {
       const actionCallback = actionPanelCall[2];
 
       // reload
-      expect(nova.commands.invoke).not.toBeCalled();
+      expect(nova.commands.invoke).not.toHaveBeenCalled();
       actionCallback(0);
-      expect(nova.commands.invoke).toBeCalledTimes(1);
-      expect(nova.commands.invoke).toBeCalledWith(
+      expect(nova.commands.invoke).toHaveBeenCalledTimes(1);
+      expect(nova.commands.invoke).toHaveBeenCalledWith(
         "apexskier.typescript.reload"
       );
 
@@ -353,18 +353,18 @@ describe("test suite", () => {
         ([command]) => command == "apexskier.typescript.reload"
       )[1];
 
-      expect(CompositeDisposableMock).toBeCalledTimes(1);
+      expect(CompositeDisposableMock).toHaveBeenCalledTimes(1);
 
       await reload();
 
-      expect(CompositeDisposableMock).toBeCalledTimes(2);
+      expect(CompositeDisposableMock).toHaveBeenCalledTimes(2);
 
       const compositeDisposable1: CompositeDisposable =
         CompositeDisposableMock.mock.results[0].value;
-      expect(compositeDisposable1.dispose).toBeCalledTimes(1);
+      expect(compositeDisposable1.dispose).toHaveBeenCalledTimes(1);
       const compositeDisposable2: CompositeDisposable =
         CompositeDisposableMock.mock.results[1].value;
-      expect(compositeDisposable2.dispose).not.toBeCalled();
+      expect(compositeDisposable2.dispose).not.toHaveBeenCalled();
 
       assertActivationBehavior();
     });
@@ -378,7 +378,7 @@ describe("test suite", () => {
       (nova as any).config = { onDidChange: jest.fn() };
       (nova as any).workspace.config = { onDidChange: jest.fn() };
 
-      expect(nova.workspace.onDidAddTextEditor).toBeCalledTimes(1);
+      expect(nova.workspace.onDidAddTextEditor).toHaveBeenCalledTimes(1);
       const setupWatcher = (nova.workspace.onDidAddTextEditor as jest.Mock).mock
         .calls[0][0];
       const mockEditor = {
@@ -391,7 +391,7 @@ describe("test suite", () => {
       };
       setupWatcher(mockEditor);
 
-      expect(mockEditor.onWillSave).toBeCalledTimes(0);
+      expect(mockEditor.onWillSave).toHaveBeenCalledTimes(0);
       const refreshListener = (nova.config.onDidChange as jest.Mock).mock
         .calls[0][1];
 
@@ -408,7 +408,7 @@ describe("test suite", () => {
       refreshListener();
       saveHandler = mockEditor.onWillSave.mock.calls[0][0];
       await saveHandler(mockEditor);
-      expect(nova.commands.invoke).toBeCalledTimes(2);
+      expect(nova.commands.invoke).toHaveBeenCalledTimes(2);
       expect(nova.commands.invoke).toHaveBeenNthCalledWith(
         1,
         "apexskier.typescript.commands.organizeImports",
@@ -431,7 +431,7 @@ describe("test suite", () => {
       refreshListener();
       saveHandler = mockEditor.onWillSave.mock.calls[0][0];
       await saveHandler(mockEditor);
-      expect(nova.commands.invoke).toBeCalledTimes(1);
+      expect(nova.commands.invoke).toHaveBeenCalledTimes(1);
       expect(nova.commands.invoke).toHaveBeenNthCalledWith(
         1,
         "apexskier.typescript.commands.organizeImports",
@@ -449,7 +449,7 @@ describe("test suite", () => {
       refreshListener();
       saveHandler = mockEditor.onWillSave.mock.calls[0][0];
       await saveHandler(mockEditor);
-      expect(nova.commands.invoke).toBeCalledTimes(1);
+      expect(nova.commands.invoke).toHaveBeenCalledTimes(1);
       expect(nova.commands.invoke).toHaveBeenNthCalledWith(
         1,
         "apexskier.typescript.commands.formatDocument",

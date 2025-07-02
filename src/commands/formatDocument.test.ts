@@ -70,7 +70,7 @@ describe("formatDocument command", () => {
     );
     await command(mockEditor);
 
-    expect(mockLanguageClient.sendRequest).toBeCalledTimes(1);
+    expect(mockLanguageClient.sendRequest).toHaveBeenCalledTimes(1);
     expect(mockLanguageClient.sendRequest).toHaveBeenCalledWith(
       "textDocument/formatting",
       {
@@ -81,6 +81,6 @@ describe("formatDocument command", () => {
         },
       }
     );
-    expect(mockEditor.edit).toBeCalledTimes(1);
+    expect(mockEditor.edit).toHaveBeenCalledTimes(1);
   });
 });
