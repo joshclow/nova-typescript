@@ -1,10 +1,9 @@
-import type { UserPreferences } from "typescript/lib/protocol";
+import type { UserPreferences } from "typescript";
 
 function reload() {
   nova.commands.invoke("apexskier.typescript.reload");
 }
 
-// eslint-disable-next-line no-unused-vars
 const keys: {
   [key in keyof UserPreferences]: UserPreferences[key] extends
     | boolean
@@ -15,7 +14,7 @@ const keys: {
     : UserPreferences[key] extends string[] | undefined
     ? "stringArray"
     : never;
-} & Record<keyof UserPreferences, string> = {
+} = {
   allowIncompleteCompletions: "boolean",
   allowRenameOfImportPath: "boolean",
   allowTextChangesInNewFiles: "boolean",
